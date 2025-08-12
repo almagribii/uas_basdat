@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000" # Contoh port aplikasi web, sesuaikan jika perlu
+    depends_on:
+      - bd
+    environment:
+      # Variabel lingkungan untuk konfigurasi database
+      MYSQL_HOST: bd
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 321
+      MYSQL_DB: assetUniv
+
+  bd:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: assetUniv
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 321
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
